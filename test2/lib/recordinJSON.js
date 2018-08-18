@@ -9,11 +9,11 @@ var dateAndTimeExtractor = require('./dateAndTimeExtractor');
 var counter = 0;
 
 module.exports = {
-    checkTheLogandRecordInJSON: function (line) {
+    checkTheLogandRecordInJSON: function (line,file) {
 
         counter++;
         var jsonTobeloaded = {};
-        jsonTobeloaded['id'] = counter;
+        //jsonTobeloaded['id'] = counter;
 
         jsonTobeloaded['LEVEL'] = logLevelChecker.checkForTheSeverityLevel(line);
 
@@ -21,8 +21,10 @@ module.exports = {
 
         jsonTobeloaded["line"] = line;
 
+        jsonTobeloaded["fileName"] = file;
+
         return jsonTobeloaded;
-    }
+    },
 
 
 };

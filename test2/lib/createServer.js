@@ -6,9 +6,9 @@ var Spinner = require('cli-spinner').Spinner;
 
 const app = express();
 var availablePort = 8080;
-var spinner = new Spinner('Creating server..%s');
-spinner.setSpinnerString(13);
-spinner.start();
+//var spinner = new Spinner('Creating server..%s');
+//spinner.setSpinnerString(13);
+//spinner.start();
 
 function proccedtoCreateServer(erroredLines,resultJSONarray)
 {
@@ -36,7 +36,7 @@ startListening = function(){
     spinner.stop(true);
 app.listen(availablePort, ()=>console.log(chalk.green('Server succesfully listening on the port :',availablePort)));
 
-opn('http://localhost:'+availablePort);
+//opn('http://localhost:'+availablePort);
 };
 }
 module.exports = {

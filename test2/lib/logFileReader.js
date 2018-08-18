@@ -15,29 +15,29 @@ var logLevelChecker = require('./logLevelChecker');
 var createServer = require('./createServer');
 
 module.exports = {
-    readEachLogFilefromDir: function (file,directoryPath) {
-        console.log("Reading the file", file);
-
+    readEachLogFilefromDir:async function (file,directoryPath) {
+        
+        
         var inputStream = fs.createReadStream(directoryPath + "/" + file);
         var outputStream = new stream();
         var readlineObject = readline.createInterface(inputStream, outputStream);
         var resultJSONArray = [];
-        readlineObject.on('line', function (line, err) {
+         readlineObject.on('line',async function (line, err) {
             if (err) {
                 console.log(chalk.red("There has been an error while reading the file", file, "and the error is", err));
             } else {
-                resultJSONArray.push(recordinJSON.checkTheLogandRecordInJSON(line));
+               resultJSONArray.push(recordinJSON.checkTheLogandRecordInJSON(line,file));
             }
         });
-        readlineObject.on('close', function () {
+         await readlineObject.on('close',async function () {
             console.log(chalk.bgRed("Number of Errors in file is", logLevelChecker.errLines.length));
             console.log(chalk.bgCyan("Number of Info level in statements", logLevelChecker.infoLines.length));
-            console.log('finished here');
-            fs.writeFile(directoryPath+'/analogOutput.json',JSON.stringify(resultJSONArray),function (err){
+            console.log('finished reading file: '+file);
+            await fs.writeFile(directoryPath+'/analogOutput'+file+'.json',JSON.stringify(resultJSONArray),async function (err){
                 if(err) throw err;
-                console.log("saved!");
+            //   console.log("saved!");
             });
-            createServer.proccedtoCreateServer(logLevelChecker.errLines,resultJSONArray);
+            //createServer.proccedtoCreateServer(logLevelChecker.errLines,resultJSONArray);
         });
     }
 };
