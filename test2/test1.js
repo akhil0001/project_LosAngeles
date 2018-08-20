@@ -2,6 +2,7 @@ var fs = require("fs");
 var path = require("path");
 
 var logFilereader = require('./lib/logFileReader');
+var createServer = require('./lib/createServer');
 
 
 function startReadingTheLogFiles(currentWorkingDirectory) {
@@ -21,7 +22,7 @@ function startReadingTheLogFiles(currentWorkingDirectory) {
         numberofFilestobeRead = targetFiles.length;
         console.log("The number of files to be read", numberofFilestobeRead);
         if (numberofFilestobeRead === 0) {
-            console.log("OOPS! Looks like there are no files to be read");
+            console.log("OOPS! Looks like there are no log files to be read");
             process.exit();
         }
         targetFiles.forEach(function (file) {
@@ -31,7 +32,7 @@ function startReadingTheLogFiles(currentWorkingDirectory) {
            
             await logFilereader.readEachLogFilefromDir(file, directoryPath);
         }
-        
+        createServer.proccedtoCreateServer();        
     });
 }
 

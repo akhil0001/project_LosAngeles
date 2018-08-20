@@ -10,8 +10,10 @@ var availablePort = 8080;
 //spinner.setSpinnerString(13);
 //spinner.start();
 
-function proccedtoCreateServer(erroredLines,resultJSONarray)
+function proccedtoCreateServer()
 {
+    var erroredLines=[1,2,3];
+    var resultJSONarray = [];
 app.get('/', (req,res) => {
 res.send('Good evening, Mr.Hunt \n You have to deal with '+erroredLines.length+'errors Should you choose to accept it?');
 });
@@ -33,7 +35,7 @@ startListening();
 }) ();
 
 startListening = function(){
-    spinner.stop(true);
+    //spinner.stop(true);
 app.listen(availablePort, ()=>console.log(chalk.green('Server succesfully listening on the port :',availablePort)));
 
 //opn('http://localhost:'+availablePort);
